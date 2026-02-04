@@ -14,7 +14,12 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.example.yupana"
+      "package": "com.example.yupana",
+      "permissions": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.INTERNET"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -23,6 +28,11 @@
       [
         "expo-file-system"
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "2be9b282-eb20-4d6c-88d1-bf8fad47eec3"
+      }
+    }
   }
 }

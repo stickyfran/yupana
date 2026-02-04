@@ -1,0 +1,14 @@
+rootProject.name = 'yupana'
+
+def projectRoot = rootDir.getParentFile()
+
+apply from: new File(projectRoot, "node_modules/expo/scripts/autolinking.gradle");
+useExpoModules()
+
+apply from: new File(projectRoot, "node_modules/@react-native-community/cli-platform-android/native_modules.gradle");
+applyNativeModulesSettingsGradle(settings)
+
+include ':app'
+includeBuild(new File(projectRoot, "node_modules/@react-native/gradle-plugin"))
+
+
