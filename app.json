@@ -3,32 +3,33 @@
     "name": "yupana",
     "slug": "yupana",
     "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTabletMode": true
+      "supportsTabletMode": true,
+      "bundleIdentifier": "com.stickyfran.yupana"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.example.yupana",
-      "permissions": [
-        "android.permission.READ_EXTERNAL_STORAGE",
-        "android.permission.WRITE_EXTERNAL_STORAGE",
-        "android.permission.INTERNET"
-      ]
+      "package": "com.stickyfran.yupana",
+      "permissions": []
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      [
-        "expo-file-system"
-      ]
-    ],
+    "plugins": [],
     "extra": {
       "eas": {
         "projectId": "2be9b282-eb20-4d6c-88d1-bf8fad47eec3"
