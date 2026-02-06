@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { v4 as uuidv4 } from 'uuid';
+import uuid from 'react-native-uuid';
 import { calculateSettlements } from '../utils/settlements';
 import { t } from '../utils/i18n';
 
@@ -69,7 +69,7 @@ export const AppProvider = ({ children }) => {
 
   const addDebugLog = (title, level = 'info', message = '') => {
     const timestamp = new Date().toISOString();
-    const log = { timestamp, title, level, message, id: uuidv4() };
+    const log = { timestamp, title, level, message, id: uuid.v4() };
     setDebugLogs(prev => {
       const updated = [log, ...prev];
       if (updated.length > 1000) updated.pop();
@@ -83,7 +83,7 @@ export const AppProvider = ({ children }) => {
       // Use imported data with a new ID
       const newGroup = {
         ...importedData,
-        id: uuidv4(),
+        id: uuid.v4(),
         createdAt: new Date().toISOString(),
       };
       setGroups(prev => [...prev, newGroup]);
@@ -92,7 +92,7 @@ export const AppProvider = ({ children }) => {
     } else {
       // Create new empty group
       const newGroup = {
-        id: uuidv4(),
+        id: uuid.v4(),
         name: groupName,
         theme: '#6200ee',
         members: [],
@@ -121,7 +121,7 @@ export const AppProvider = ({ children }) => {
 
   const addMember = (groupId, memberName) => {
     const newMember = {
-      id: uuidv4(),
+      id: uuid.v4(),
       name: memberName,
       addedAt: new Date().toISOString(),
     };
@@ -134,7 +134,7 @@ export const AppProvider = ({ children }) => {
               activities: [
                 ...g.activities,
                 {
-                  id: uuidv4(),
+                  id: uuid.v4(),
                   type: 'member_added',
                   author: profile.name,
                   member: memberName,
@@ -163,7 +163,7 @@ export const AppProvider = ({ children }) => {
             activities: [
               ...g.activities,
               {
-                id: uuidv4(),
+                id: uuid.v4(),
                 type: 'member_removed',
                 author: profile.name,
                 member: member?.name,
@@ -192,7 +192,7 @@ export const AppProvider = ({ children }) => {
             activities: [
               ...g.activities,
               {
-                id: uuidv4(),
+                id: uuid.v4(),
                 type: 'member_renamed',
                 author: profile.name,
                 memberId,
@@ -212,7 +212,7 @@ export const AppProvider = ({ children }) => {
 
   const addExpense = (groupId, description, amount, paidBy, splitWith, splitAmounts) => {
     const newExpense = {
-      id: uuidv4(),
+      id: uuid.v4(),
       description,
       amount,
       paidBy,
@@ -230,7 +230,7 @@ export const AppProvider = ({ children }) => {
             activities: [
               ...g.activities,
               {
-                id: uuidv4(),
+                id: uuid.v4(),
                 type: 'expense_added',
                 author: profile.name,
                 expense: description,
@@ -259,7 +259,7 @@ export const AppProvider = ({ children }) => {
             activities: [
               ...g.activities,
               {
-                id: uuidv4(),
+                id: uuid.v4(),
                 type: 'expense_deleted',
                 author: profile.name,
                 expense: expense?.description,
@@ -299,7 +299,7 @@ export const AppProvider = ({ children }) => {
             activities: [
               ...g.activities,
               {
-                id: uuidv4(),
+                id: uuid.v4(),
                 type: 'expense_edited',
                 author: profile.name,
                 expense: description,

@@ -1,17 +1,23 @@
 import { Platform, NativeModules } from 'react-native';
+import * as Localization from 'expo-localization';
 
 const getDeviceLanguage = () => {
   let locale = 'en';
   
-  if (Platform.OS === 'ios') {
-    locale = NativeModules.SettingsManager?.settings?.AppleLocale ||
-             NativeModules.SettingsManager?.settings?.AppleLanguages?.[0] ||
-             'en';
-  } else if (Platform.OS === 'android') {
-    locale = NativeModules.I18nManager?.localeIdentifier || 'en';
-  } else {
-    // For web
-    locale = navigator.language || navigator.userLanguage || 'en';
+  try {
+    // Try expo-localization first (works on all platforms)
+    if (Localization.locale) {
+      locale = Localization.locale;
+    } else if (Platform.OS === 'ios') {
+      locale = NativeModules.SettingsManager?.settings?.AppleLocale ||
+               NativeModules.SettingsManager?.settings?.AppleLanguages?.[0] ||
+               'en';
+    } else if (Platform.OS === 'android') {
+      locale = NativeModules.I18nManager?.localeIdentifier || 'en';
+    }
+  } catch (error) {
+    console.warn('Error getting device language:', error);
+    locale = 'en';
   }
   
   return locale.toLowerCase();
