@@ -120,9 +120,9 @@ const GroupsScreen = ({ navigation }) => {
               color="#ccc"
               style={{ marginBottom: 16 }}
             />
-            <Text style={styles.emptyText}>No groups yet</Text>
+            <Text style={styles.emptyText}>{t('noGroups')}</Text>
             <Text style={styles.emptySubtext}>
-              Create a group to start tracking expenses
+              {t('tapToCreate')}
             </Text>
           </View>
         ) : (
