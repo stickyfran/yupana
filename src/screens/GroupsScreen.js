@@ -150,7 +150,7 @@ const GroupsScreen = ({ navigation }) => {
         visible={showCreateModal}
         onClose={() => setShowCreateModal(false)}
         onCreate={handleCreateGroup}
-        themeColor={profile.theme}
+        themeColor="#2196F3"
       />
 
       <Modal
