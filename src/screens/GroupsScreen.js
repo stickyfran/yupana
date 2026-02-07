@@ -14,26 +14,20 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { AppContext } from '../context/AppContext';
 import ProfileScreen from './ProfileScreen';
 import SettingsScreen from './SettingsScreen';
+import { CreateGroupModal } from '../components/CreateGroupModal';
 import { t } from '../utils/i18n';
 
 const GroupsScreen = ({ navigation }) => {
   const { groups, createGroup, deleteGroup, profile } = useContext(AppContext);
-  const [showCreateForm, setShowCreateForm] = useState(false);
-  const [groupName, setGroupName] = useState('');
+  const [showCreateModal, setShowCreateModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState({ show: false, groupId: null, groupName: '' });
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showImportModal, setShowImportModal] = useState(false);
   const [importJson, setImportJson] = useState('');
 
-  const handleCreateGroup = () => {
-    if (!groupName.trim()) {
-      alert('Please enter a group name');
-      return;
-    }
-    createGroup(groupName);
-    setGroupName('');
-    setShowCreateForm(false);
+  const handleCreateGroup = (groupData) => {
+    createGroup(groupData.name, null, groupData.members);
   };
 
   const handleDeleteGroup = (groupId, name) => {
@@ -143,44 +137,21 @@ const GroupsScreen = ({ navigation }) => {
 
       <TouchableOpacity
         style={[styles.fab, { backgroundColor: '#2196F3' }]}
-        onPress={() => setShowCreateForm(!showCreateForm)}
+        onPress={() => setShowCreateModal(true)}
       >
         <MaterialIcons
-          name={showCreateForm ? 'close' : 'group-add'}
+          name="group-add"
           size={28}
           color="white"
         />
       </TouchableOpacity>
 
-      {showCreateForm && (
-        <View style={styles.createForm}>
-          <Text style={styles.formTitle}>{t('createGroup')}</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter group name"
-            placeholderTextColor="#999"
-            value={groupName}
-            onChangeText={setGroupName}
-          />
-          <View style={styles.formButtons}>
-            <TouchableOpacity
-              style={[styles.createBtn, { backgroundColor: profile.theme }]}
-              onPress={handleCreateGroup}
-            >
-              <Text style={styles.createBtnText}>{t('create')}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.cancelBtn}
-              onPress={() => {
-                setGroupName('');
-                setShowCreateForm(false);
-              }}
-            >
-              <Text style={styles.cancelBtnText}>{t('cancel')}</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      )}
+      <CreateGroupModal
+        visible={showCreateModal}
+        onClose={() => setShowCreateModal(false)}
+        onCreate={handleCreateGroup}
+        themeColor={profile.theme}
+      />
 
       <Modal
         visible={deleteModal.show}
@@ -432,61 +403,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#999',
     textAlign: 'center',
-  },
-  createForm: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'white',
-    padding: 16,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: -3 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 8,
-  },
-  formTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 12,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 12,
-    fontSize: 16,
-  },
-  formButtons: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-  createBtn: {
-    flex: 1,
-    padding: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  createBtnText: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  cancelBtn: {
-    flex: 1,
-    padding: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-    backgroundColor: '#f0f0f0',
-  },
-  cancelBtnText: {
-    color: '#666',
-    fontWeight: 'bold',
-    fontSize: 16,
   },
   modalOverlay: {
     flex: 1,

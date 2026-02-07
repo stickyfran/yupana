@@ -86,7 +86,7 @@ export const AppProvider = ({ children }) => {
     });
   };
 
-  const createGroup = (groupName, importedData = null) => {
+  const createGroup = (groupName, importedData = null, initialMembers = []) => {
     if (importedData) {
       // Use imported data with a new ID
       const newGroup = {
@@ -98,18 +98,23 @@ export const AppProvider = ({ children }) => {
       addDebugLog(`Group imported: ${newGroup.name}`, 'info');
       return newGroup;
     } else {
-      // Create new empty group
+      // Create new empty group with optional initial members
+      const membersWithIds = initialMembers.map(m => ({
+        id: m.id || generateUUID(),
+        name: m.name,
+      }));
+      
       const newGroup = {
         id: generateUUID(),
         name: groupName,
         theme: '#6200ee',
-        members: [],
+        members: membersWithIds,
         expenses: [],
         activities: [],
         createdAt: new Date().toISOString(),
       };
       setGroups(prev => [...prev, newGroup]);
-      addDebugLog(`Group created: ${groupName}`, 'info');
+      addDebugLog(`Group created: ${groupName} with ${membersWithIds.length} members`, 'info');
       return newGroup;
     }
   };

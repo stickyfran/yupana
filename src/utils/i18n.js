@@ -68,9 +68,13 @@ const translations = {
     
     // Members
     addMember: 'Add Member',
+    members: 'Members',
     memberName: 'Member Name',
     editMember: 'Edit Member',
     deleteMember: 'Delete Member',
+    enterMemberName: 'Please enter a member name',
+    enterGroupName: 'Please enter a group name',
+    error: 'Error',
     
     // Activity
     activityHistory: 'Activity History',
@@ -153,9 +157,13 @@ const translations = {
     
     // Members
     addMember: 'Añadir Miembro',
+    members: 'Miembros',
     memberName: 'Nombre del Miembro',
     editMember: 'Editar Miembro',
     deleteMember: 'Eliminar Miembro',
+    enterMemberName: 'Por favor ingresa un nombre de miembro',
+    enterGroupName: 'Por favor ingresa un nombre de grupo',
+    error: 'Error',
     
     // Activity
     activityHistory: 'Historial de Actividad',
