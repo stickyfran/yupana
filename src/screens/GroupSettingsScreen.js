@@ -10,6 +10,7 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AppContext } from '../context/AppContext';
 import { t } from '../utils/i18n';
@@ -94,7 +95,7 @@ const GroupSettingsScreen = ({ route, navigation }) => {
   );
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       {/* Header with Back Button */}
       <View style={styles.header}>
         <TouchableOpacity 
