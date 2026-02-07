@@ -1,8 +1,16 @@
 import React, { createContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import uuid from 'react-native-uuid';
 import { calculateSettlements } from '../utils/settlements';
 import { t } from '../utils/i18n';
+
+// Simple UUID v4 generator (pure JS, no native dependencies)
+const generateUUID = () => {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+};
 
 export const AppContext = createContext();
 
@@ -69,7 +77,7 @@ export const AppProvider = ({ children }) => {
 
   const addDebugLog = (title, level = 'info', message = '') => {
     const timestamp = new Date().toISOString();
-    const log = { timestamp, title, level, message, id: uuid.v4() };
+    const log = { timestamp, title, level, message, id: generateUUID() };
     setDebugLogs(prev => {
       const updated = [log, ...prev];
       if (updated.length > 1000) updated.pop();
@@ -83,7 +91,7 @@ export const AppProvider = ({ children }) => {
       // Use imported data with a new ID
       const newGroup = {
         ...importedData,
-        id: uuid.v4(),
+        id: generateUUID(),
         createdAt: new Date().toISOString(),
       };
       setGroups(prev => [...prev, newGroup]);
@@ -92,7 +100,7 @@ export const AppProvider = ({ children }) => {
     } else {
       // Create new empty group
       const newGroup = {
-        id: uuid.v4(),
+        id: generateUUID(),
         name: groupName,
         theme: '#6200ee',
         members: [],
@@ -121,7 +129,7 @@ export const AppProvider = ({ children }) => {
 
   const addMember = (groupId, memberName) => {
     const newMember = {
-      id: uuid.v4(),
+      id: generateUUID(),
       name: memberName,
       addedAt: new Date().toISOString(),
     };
@@ -134,7 +142,7 @@ export const AppProvider = ({ children }) => {
               activities: [
                 ...g.activities,
                 {
-                  id: uuid.v4(),
+                  id: generateUUID(),
                   type: 'member_added',
                   author: profile.name,
                   member: memberName,
@@ -163,7 +171,7 @@ export const AppProvider = ({ children }) => {
             activities: [
               ...g.activities,
               {
-                id: uuid.v4(),
+                id: generateUUID(),
                 type: 'member_removed',
                 author: profile.name,
                 member: member?.name,
@@ -192,7 +200,7 @@ export const AppProvider = ({ children }) => {
             activities: [
               ...g.activities,
               {
-                id: uuid.v4(),
+                id: generateUUID(),
                 type: 'member_renamed',
                 author: profile.name,
                 memberId,
@@ -212,7 +220,7 @@ export const AppProvider = ({ children }) => {
 
   const addExpense = (groupId, description, amount, paidBy, splitWith, splitAmounts) => {
     const newExpense = {
-      id: uuid.v4(),
+      id: generateUUID(),
       description,
       amount,
       paidBy,
@@ -230,7 +238,7 @@ export const AppProvider = ({ children }) => {
             activities: [
               ...g.activities,
               {
-                id: uuid.v4(),
+                id: generateUUID(),
                 type: 'expense_added',
                 author: profile.name,
                 expense: description,
@@ -259,7 +267,7 @@ export const AppProvider = ({ children }) => {
             activities: [
               ...g.activities,
               {
-                id: uuid.v4(),
+                id: generateUUID(),
                 type: 'expense_deleted',
                 author: profile.name,
                 expense: expense?.description,
@@ -299,7 +307,7 @@ export const AppProvider = ({ children }) => {
             activities: [
               ...g.activities,
               {
-                id: uuid.v4(),
+                id: generateUUID(),
                 type: 'expense_edited',
                 author: profile.name,
                 expense: description,
