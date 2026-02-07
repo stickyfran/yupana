@@ -6,8 +6,10 @@ const getDeviceLanguage = () => {
   
   try {
     // Try expo-localization first (works on all platforms)
-    if (Localization.locale) {
+    if (Localization && Localization.locale) {
       locale = Localization.locale;
+    } else if (Localization && Localization.getLocales && Localization.getLocales().length > 0) {
+      locale = Localization.getLocales()[0].languageCode || 'en';
     } else if (Platform.OS === 'ios') {
       locale = NativeModules.SettingsManager?.settings?.AppleLocale ||
                NativeModules.SettingsManager?.settings?.AppleLanguages?.[0] ||
@@ -16,7 +18,7 @@ const getDeviceLanguage = () => {
       locale = NativeModules.I18nManager?.localeIdentifier || 'en';
     }
   } catch (error) {
-    console.warn('Error getting device language:', error);
+    console.warn('Error getting device language, defaulting to English:', error);
     locale = 'en';
   }
   
