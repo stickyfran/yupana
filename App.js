@@ -56,7 +56,7 @@ function AppContent() {
 
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" backgroundColor="#2196F3" />
       <RootNavigator />
     </>
   );
