@@ -8,6 +8,7 @@ import {
   FlatList,
   Modal,
   TextInput,
+  Alert,
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AppContext } from '../context/AppContext';
@@ -71,9 +72,18 @@ const GroupSettingsScreen = ({ route, navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity 
           onPress={() => {
-            if (window.confirm(`${t('confirmDeleteMember')} "${item.name}"?`)) {
-              removeMember(groupId, item.id);
-            }
+            Alert.alert(
+              t('confirmDeleteMember'),
+              `"${item.name}"?`,
+              [
+                { text: t('cancel'), style: 'cancel' },
+                { 
+                  text: t('delete'), 
+                  style: 'destructive',
+                  onPress: () => removeMember(groupId, item.id)
+                }
+              ]
+            );
           }}
           style={styles.memberActionBtn}
         >
