@@ -203,7 +203,7 @@ const GroupSettingsScreen = ({ route, navigation }) => {
       >
         <MaterialIcons name="person-add" size={28} color="white" />
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 
