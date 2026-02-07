@@ -9,6 +9,7 @@ import {
   Modal,
   TextInput,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import moment from 'moment';
 import { AppContext } from '../context/AppContext';
@@ -207,7 +208,7 @@ const GroupDetailScreen = ({ route, navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       {/* Header with Back Button */}
       <View style={styles.header}>
         <TouchableOpacity 
@@ -613,7 +614,7 @@ const GroupDetailScreen = ({ route, navigation }) => {
           </ScrollView>
         </View>
       </Modal>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -943,7 +944,7 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   fab: {
-    position: 'fixed',
+    position: 'absolute',
     bottom: 24,
     right: 24,
     width: 56,

@@ -122,7 +122,6 @@ const GroupSettingsScreen = ({ route, navigation }) => {
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>{t('addMember')}</Text>
-            <Text style={styles.modalLabel}>{t('enterMemberName')}</Text>
             <TextInput
               style={styles.modalInput}
               placeholder={t('memberName')}

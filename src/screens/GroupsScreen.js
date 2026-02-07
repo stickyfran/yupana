@@ -9,6 +9,7 @@ import {
   TextInput,
   Modal,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AppContext } from '../context/AppContext';
 import ProfileScreen from './ProfileScreen';
@@ -99,7 +100,7 @@ const GroupsScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       {/* Custom Header */}
       <View style={styles.header}>
         <View style={styles.headerLeft}>
@@ -291,7 +292,7 @@ const GroupsScreen = ({ navigation }) => {
           </View>
         </View>
       </Modal>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -401,7 +402,7 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   fab: {
-    position: 'fixed',
+    position: 'absolute',
     bottom: 32,
     right: 16,
     width: 60,
